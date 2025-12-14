@@ -1,5 +1,7 @@
+using System.Dynamic;
 using System.Net.Http;
 using System.Text.Json;
+using cbbScoreboard.Models;
 
 namespace cbbScoreboard.Services;
 
@@ -12,13 +14,39 @@ public class GamesService
         _httpClient = httpClient;
     }
 
-    public async Task<JsonElement> GetTodayGamesAsync()
+    public async Task<List<GameDto>> GetTodayGamesAsync()
     {
         var url = "https://ncaa-api.henrygd.me/scoreboard/basketball-men/d1";
 
         var response  = await _httpClient.GetStringAsync(url);
-
         using var doc = JsonDocument.Parse(response);
-        return doc.RootElement.Clone();
+
+        var games = new List<GameDto>();
+
+        var gamesArray = doc.RootElement
+            .GetProperty("games")
+            .EnumerateArray();
+
+        foreach (var game in gamesArray)
+        {
+            var _game = game.GetProperty("game");
+            var home = _game.GetProperty("home");
+            var away = _game.GetProperty("away");
+
+            games.Add(new GameDto
+            {
+                GameId = _game.GetProperty("gameID").GetString() ?? "",
+                HomeTeam = home.GetProperty("names").GetProperty("short").GetString() ?? "",
+                AwayTeam = away.GetProperty("names").GetProperty("short").GetString() ?? "",
+
+                HomeScore = home.GetProperty("score").GetString() ?? "",
+                AwayScore = away.GetProperty("score").GetString() ?? "",
+
+                Status = _game.GetProperty("finalMessage").GetString() ?? "",
+                StartTime = _game.GetProperty("startTime").GetString() ?? "",
+                StartDate = _game.GetProperty("startDate").GetString() ?? ""
+            });
+        }
+        return games;
     }
 }
