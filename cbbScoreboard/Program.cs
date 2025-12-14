@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using cbbScoreboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient<GamesService>();
 
 var app = builder.Build();
 
@@ -15,10 +17,11 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/games/test", () =>
+app.MapGet("/api/games/today", async (GamesService gamesService) =>
 {
-    return Results.Ok("CBB Scoreboard API is running");
+    var games = await gamesService.GetTodayGamesAsync();
+    return Results.Ok(games);
 })
-.WithName("GamesTest");
+.WithName("GetTodayGames");
 
 app.Run();
