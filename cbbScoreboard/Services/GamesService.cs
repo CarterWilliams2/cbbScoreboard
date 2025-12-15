@@ -67,4 +67,10 @@ public class GamesService
             _ => games
         };
     }
+
+    public async Task<GameDto?> GetGameByIdAsync(string gameId)
+    {
+        var games = await GetTodayGamesAsync();
+        return games.FirstOrDefault(g => g.GameId == gameId);
+    }
 }
