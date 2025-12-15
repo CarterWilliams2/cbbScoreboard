@@ -22,7 +22,18 @@ public class GamesController: ControllerBase
 
         if (games.Count == 0)
             return NotFound("No games found for that status");
-            
+
         return Ok(games);
+    }
+
+    [HttpGet("{gameId}")]
+    public async Task<ActionResult<GameDto>> GetGameById(string gameId)
+    {
+        var game = await _gamesService.GetGameByIdAsync(gameId);
+
+        if (game == null) 
+            return NotFound($"Game with ID {gameId} not found");
+
+        return game;        
     }
 }
