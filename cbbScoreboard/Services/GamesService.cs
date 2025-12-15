@@ -44,7 +44,10 @@ public class GamesService
 
                 Status = _game.GetProperty("gameState").GetString()?.ToLower() ?? "",
                 StartTime = _game.GetProperty("startTime").GetString() ?? "",
-                StartDate = _game.GetProperty("startDate").GetString() ?? ""
+                StartDate = _game.GetProperty("startDate").GetString() ?? "",
+
+                HomeConference = home.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? "",
+                AwayConference = away.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? ""
             });
         }
         return games;
@@ -72,5 +75,23 @@ public class GamesService
     {
         var games = await GetTodayGamesAsync();
         return games.FirstOrDefault(g => g.GameId == gameId);
+    }
+
+    public async Task<List<GameDto>?> GetTodayGamesByConferenceAsync(string conference)
+    {
+        var games = await GetTodayGamesAsync();
+
+        if (string.IsNullOrWhiteSpace(conference))
+            return games;
+
+        var conf_games = new List<GameDto>();
+
+        foreach(var game in games)
+        {
+            if (game.HomeConference == conference || game.AwayConference == conference)
+                conf_games.Add(game);
+        }
+
+        return conf_games;
     }
 }

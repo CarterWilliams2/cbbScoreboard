@@ -36,4 +36,15 @@ public class GamesController: ControllerBase
 
         return game;        
     }
+
+    [HttpGet("conference/{conference}")]
+    public async Task<ActionResult<List<GameDto>>> GetGamesByConference(string conference)
+    {
+        var games = await _gamesService.GetTodayGamesByConferenceAsync(conference);
+
+        if (games == null || games.Count == 0) 
+            return NotFound("No games in that conference today");
+        
+        return games;
+    }
 }
