@@ -42,7 +42,7 @@ public class GamesService
                 HomeScore = home.GetProperty("score").GetString() ?? "",
                 AwayScore = away.GetProperty("score").GetString() ?? "",
 
-                Status = _game.GetProperty("finalMessage").GetString() ?? "",
+                Status = _game.GetProperty("gameState").GetString() ?? "",
                 StartTime = _game.GetProperty("startTime").GetString() ?? "",
                 StartDate = _game.GetProperty("startDate").GetString() ?? ""
             });

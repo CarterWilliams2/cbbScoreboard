@@ -10,6 +10,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient<GamesService>();
 
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -17,11 +19,6 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/games/today", async (GamesService gamesService) =>
-{
-    var games = await gamesService.GetTodayGamesAsync();
-    return Results.Ok(games);
-})
-.WithName("GetTodayGames");
+app.MapControllers();
 
 app.Run();
