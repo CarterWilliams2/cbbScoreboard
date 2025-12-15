@@ -16,35 +16,23 @@ public class GamesController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<GameDto>>> GetGames([FromQuery] string? status)
+    public async Task<ActionResult<List<GameDto>>> GetGames(
+        [FromQuery] string? status,
+        [FromQuery] string? conference)
     {
-        var games = await _gamesService.GetTodayGamesByStatusAsync(status);
-
-        if (games.Count == 0)
-            return NotFound("No games found for that status");
-
-        return Ok(games);
+        var games = await _gamesService.GetFilteredGamesAsync(status, conference);
+        return games;
     }
 
     [HttpGet("{gameId}")]
-    public async Task<ActionResult<GameDto>> GetGameById(string gameId)
+    public async Task<ActionResult<GameDto?>> GetGameById(string gameId)
     {
         var game = await _gamesService.GetGameByIdAsync(gameId);
 
-        if (game == null) 
-            return NotFound($"Game with ID {gameId} not found");
+        if (game == null)
+            return NotFound($"Game with Id {gameId} not found");
 
-        return game;        
+        return game;
     }
-
-    [HttpGet("conference/{conference}")]
-    public async Task<ActionResult<List<GameDto>>> GetGamesByConference(string conference)
-    {
-        var games = await _gamesService.GetTodayGamesByConferenceAsync(conference);
-
-        if (games == null || games.Count == 0) 
-            return NotFound("No games in that conference today");
-        
-        return games;
-    }
+    
 }

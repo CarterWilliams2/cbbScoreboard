@@ -2,6 +2,8 @@ using System.Dynamic;
 using System.Net.Http;
 using System.Text.Json;
 using cbbScoreboard.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace cbbScoreboard.Services;
 
@@ -53,45 +55,45 @@ public class GamesService
         return games;
     }
 
-    public async Task<List<GameDto>> GetTodayGamesByStatusAsync(string? status)
+    public async Task<List<GameDto>> GetFilteredGamesAsync(
+        string? status,
+        string? conference
+    )
     {
         var games = await GetTodayGamesAsync();
 
-        if (string.IsNullOrWhiteSpace(status))
-            return games;
-        
-        status = status.ToLower();
-
-        return status switch
+        if (!string.IsNullOrWhiteSpace(status))
         {
-            "live" => games.Where(g => g.Status == "live").ToList(),
-            "final" => games.Where(g => g.Status == "final").ToList(),
-            "upcoming" => games.Where(g => g.Status != "live" && g.Status != "final").ToList(),
-            _ => games
-        };
-    }
+            status = status.ToLower();
 
-    public async Task<GameDto?> GetGameByIdAsync(string gameId)
-    {
-        var games = await GetTodayGamesAsync();
-        return games.FirstOrDefault(g => g.GameId == gameId);
-    }
-
-    public async Task<List<GameDto>?> GetTodayGamesByConferenceAsync(string conference)
-    {
-        var games = await GetTodayGamesAsync();
-
-        if (string.IsNullOrWhiteSpace(conference))
-            return games;
-
-        var conf_games = new List<GameDto>();
-
-        foreach(var game in games)
-        {
-            if (game.HomeConference == conference || game.AwayConference == conference)
-                conf_games.Add(game);
+            games = status switch
+            {
+                "live" => games.Where(g => g.Status == "live").ToList(),
+                "final" => games.Where(g => g.Status == "final").ToList(),
+                "upcoming" => games
+                    .Where(g => g.Status != "live" && g.Status != "final")
+                    .ToList(),
+                _ => games
+            };
         }
 
-        return conf_games;
+        if (!string.IsNullOrWhiteSpace(conference))
+        {
+            conference = conference.ToLower();
+
+            games = games
+                .Where(g => g.AwayConference.ToLower() == conference)
+                .ToList();
+        }
+
+        return games;
+    }
+
+    internal async Task<ActionResult<GameDto?>> GetGameByIdAsync(string gameId)
+    {
+        var games = await GetTodayGamesAsync();
+
+        return games.FirstOrDefault(g => g.GameId == gameId);
+
     }
 }
