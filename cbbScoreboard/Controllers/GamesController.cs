@@ -16,9 +16,13 @@ public class GamesController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<GameDto>>> GetGames()
+    public async Task<ActionResult<List<GameDto>>> GetGames([FromQuery] string? status)
     {
-        var games = await _gamesService.GetTodayGamesAsync();
+        var games = await _gamesService.GetTodayGamesByStatusAsync(status);
+
+        if (games.Count == 0)
+            return NotFound("No games found for that status");
+            
         return Ok(games);
     }
 }

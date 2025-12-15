@@ -42,11 +42,29 @@ public class GamesService
                 HomeScore = home.GetProperty("score").GetString() ?? "",
                 AwayScore = away.GetProperty("score").GetString() ?? "",
 
-                Status = _game.GetProperty("gameState").GetString() ?? "",
+                Status = _game.GetProperty("gameState").GetString()?.ToLower() ?? "",
                 StartTime = _game.GetProperty("startTime").GetString() ?? "",
                 StartDate = _game.GetProperty("startDate").GetString() ?? ""
             });
         }
         return games;
+    }
+
+    public async Task<List<GameDto>> GetTodayGamesByStatusAsync(string? status)
+    {
+        var games = await GetTodayGamesAsync();
+
+        if (string.IsNullOrWhiteSpace(status))
+            return games;
+        
+        status = status.ToLower();
+
+        return status switch
+        {
+            "live" => games.Where(g => g.Status == "live").ToList(),
+            "final" => games.Where(g => g.Status == "final").ToList(),
+            "upcoming" => games.Where(g => g.Status != "live" && g.Status != "final").ToList(),
+            _ => games
+        };
     }
 }
