@@ -23,8 +23,13 @@ public class GamesService
 
     public async Task<List<GameDto>> GetTodayGamesAsync()
     {
-        var url = "https://ncaa-api.henrygd.me/scoreboard/basketball-men/d1";
 
+        if (_cache.TryGetValue(TodayGamesCacheKey, out List<GameDto>? cachedGames))
+    {
+        return cachedGames!;
+    }
+
+        var url = "https://ncaa-api.henrygd.me/scoreboard/basketball-men/d1";
         var response  = await _httpClient.GetStringAsync(url);
         using var doc = JsonDocument.Parse(response);
 
@@ -77,7 +82,9 @@ public class GamesService
 
     public async Task<List<GameDto>> GetFilteredGamesAsync(
         string? status,
-        string? conference
+        string? conference,
+        int page,
+        int pageSize
     )
     {
         var games = await GetTodayGamesAsync();
@@ -106,10 +113,15 @@ public class GamesService
                 .ToList();
         }
 
+        games = games
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
         return games;
     }
 
-    internal async Task<ActionResult<GameDto?>> GetGameByIdAsync(string gameId)
+    public async Task<GameDto?> GetGameByIdAsync(string gameId)
     {
         var games = await GetTodayGamesAsync();
 
