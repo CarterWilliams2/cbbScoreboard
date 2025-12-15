@@ -7,9 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient<GamesService>();
-
 builder.Services.AddControllers();
 
 var app = builder.Build();

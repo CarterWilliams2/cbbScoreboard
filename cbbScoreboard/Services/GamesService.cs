@@ -4,16 +4,21 @@ using System.Text.Json;
 using cbbScoreboard.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace cbbScoreboard.Services;
 
 public class GamesService
 {
     private readonly HttpClient _httpClient;
+    private readonly IMemoryCache _cache;
 
-    public GamesService(HttpClient httpClient)
+    private const string TodayGamesCacheKey = "today_games";
+
+    public GamesService(HttpClient httpClient, IMemoryCache cache)
     {
         _httpClient = httpClient;
+        _cache = cache;
     }
 
     public async Task<List<GameDto>> GetTodayGamesAsync()
@@ -23,6 +28,21 @@ public class GamesService
         var response  = await _httpClient.GetStringAsync(url);
         using var doc = JsonDocument.Parse(response);
 
+        var games = ParseGames(doc);
+
+        _cache.Set(
+            TodayGamesCacheKey,
+            games,
+            TimeSpan.FromSeconds(30)
+        );
+
+        return games;
+
+        
+    }
+
+    private List<GameDto> ParseGames(JsonDocument doc)
+    {
         var games = new List<GameDto>();
 
         var gamesArray = doc.RootElement
