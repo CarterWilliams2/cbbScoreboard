@@ -109,7 +109,7 @@ public class GamesService
             conference = conference.ToLower();
 
             games = games
-                .Where(g => g.AwayConference.ToLower() == conference || g => g.HomeConference.ToLower() == conference)
+                .Where(g => (g.AwayConference.ToLower() == conference || g.HomeConference.ToLower() == conference))
                 .ToList();
         }
 
