@@ -69,7 +69,7 @@ public class GamesService
                 HomeScore = home.GetProperty("score").GetString() ?? "",
                 AwayScore = away.GetProperty("score").GetString() ?? "",
 
-                Status = _game.GetProperty("gameState").GetString()?.ToLower() ?? "",
+                Status = NormalizeStatus(_game.GetProperty("gameState").GetString()?) ?? "",
                 StartTime = _game.GetProperty("startTime").GetString() ?? "",
                 StartDate = _game.GetProperty("startDate").GetString() ?? "",
 
@@ -140,5 +140,15 @@ public class GamesService
 
         return games.FirstOrDefault(g => g.GameId == gameId);
 
+    }
+
+    private GameStatus NormalizeStatus(string? raw)
+    {
+        return raw?.ToLower() switch
+        {
+            "live" => GameStatus.Live,
+            "final" => GameStatus.Final,
+            _ => GameStatus.Upcoming
+        };
     }
 }
