@@ -109,9 +109,14 @@ public class GamesService
             conference = conference.ToLower();
 
             games = games
-                .Where(g => g.AwayConference.ToLower() == conference)
+                .Where(g => g.AwayConference.ToLower() == conference || g => g.HomeConference.ToLower() == conference)
                 .ToList();
         }
+
+        games = games
+            .OrderBy(g => g.StartDate)
+            .ThenBy(g => g.StartTime)
+            .ToList();
 
         var totalCount = games.Count;
 
