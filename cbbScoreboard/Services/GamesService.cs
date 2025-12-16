@@ -5,6 +5,9 @@ using cbbScoreboard.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Globalization;
+using System;
+
 
 namespace cbbScoreboard.Services;
 
@@ -69,9 +72,12 @@ public class GamesService
                 HomeScore = home.GetProperty("score").GetString() ?? "",
                 AwayScore = away.GetProperty("score").GetString() ?? "",
 
-                Status = NormalizeStatus(_game.GetProperty("gameState").GetString()?) ?? "",
-                StartTime = _game.GetProperty("startTime").GetString() ?? "",
-                StartDate = _game.GetProperty("startDate").GetString() ?? "",
+                Status = NormalizeStatus(_game.GetProperty("gameState").GetString()),
+
+                StartTimeUtc = ParseStartTime(
+                    _game.GetProperty("startDate").GetString(),
+                    _game.GetProperty("startTime").GetString()
+                ),
 
                 HomeConference = home.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? "",
                 AwayConference = away.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? ""
@@ -95,10 +101,10 @@ public class GamesService
 
             games = status switch
             {
-                "live" => games.Where(g => g.Status == "live").ToList(),
-                "final" => games.Where(g => g.Status == "final").ToList(),
+                "live" => games.Where(g => g.Status == GameStatus.Live).ToList(),
+                "final" => games.Where(g => g.Status == GameStatus.Final).ToList(),
                 "upcoming" => games
-                    .Where(g => g.Status != "live" && g.Status != "final")
+                    .Where(g => g.Status != GameStatus.Live && g.Status != GameStatus.Final)
                     .ToList(),
                 _ => games
             };
@@ -114,8 +120,7 @@ public class GamesService
         }
 
         games = games
-            .OrderBy(g => g.StartDate)
-            .ThenBy(g => g.StartTime)
+            .OrderBy(g => g.StartTimeUtc)
             .ToList();
 
         var totalCount = games.Count;
@@ -151,4 +156,29 @@ public class GamesService
             _ => GameStatus.Upcoming
         };
     }
+
+    private static DateTime ParseStartTime(string? date, string? time)
+{
+    if (string.IsNullOrWhiteSpace(date) || string.IsNullOrWhiteSpace(time))
+        return DateTime.MinValue;
+
+    // Remove " ET"
+    time = time.Replace(" ET", "").Trim();
+
+    var combined = $"{date} {time}";
+
+    if (DateTime.TryParseExact(
+        combined,
+        "MM/dd/yyyy h:mm tt",
+        CultureInfo.InvariantCulture,
+        DateTimeStyles.None,
+        out var parsed))
+    {
+        var eastern = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        return TimeZoneInfo.ConvertTimeToUtc(parsed, eastern);
+    }
+
+    return DateTime.MinValue;
+}
+
 }
