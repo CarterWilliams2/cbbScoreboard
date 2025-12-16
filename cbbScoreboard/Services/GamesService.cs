@@ -80,7 +80,7 @@ public class GamesService
         return games;
     }
 
-    public async Task<List<GameDto>> GetFilteredGamesAsync(
+    public async Task<PagedResult<GameDto>> GetFilteredGamesAsync(
         string? status,
         string? conference,
         int page,
@@ -113,12 +113,20 @@ public class GamesService
                 .ToList();
         }
 
-        games = games
+        var totalCount = games.Count;
+
+        var items = games
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
 
-        return games;
+        return new PagedResult<GameDto> {
+            Items = items,
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
+
     }
 
     public async Task<GameDto?> GetGameByIdAsync(string gameId)
