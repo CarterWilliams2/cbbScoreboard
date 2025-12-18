@@ -162,7 +162,6 @@ public class GamesService
     if (string.IsNullOrWhiteSpace(date) || string.IsNullOrWhiteSpace(time))
         return DateTime.MinValue;
 
-    // Remove " ET"
     time = time.Replace(" ET", "").Trim();
 
     var combined = $"{date} {time}";
