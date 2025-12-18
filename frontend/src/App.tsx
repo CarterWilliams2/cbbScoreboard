@@ -24,8 +24,8 @@ function App() {
 
       <div style={{ marginBottom: 16 }}>
         <button onClick={() => setStatus(undefined)}>All</button>
-        <button onClick={() => setStatus("live")}>Live</button>
         <button onClick={() => setStatus("upcoming")}>Upcoming</button>
+        <button onClick={() => setStatus("live")}>Live</button>
         <button onClick={() => setStatus("final")}>Final</button>
       </div>
 
