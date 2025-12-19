@@ -17,7 +17,7 @@ export type PagedResult<T> = {
     totalCount: number;
 };
 
-export const API_BASE = "http://localhost:5150/api/games"
+const API_BASE = "http://localhost:5150/api/games"
 
 export async function fetchGames(params?: {
     status?: GameStatus,
