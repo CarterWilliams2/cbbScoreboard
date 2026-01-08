@@ -8,6 +8,9 @@
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/cbbScoreboard.pdb
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Microsoft.OpenApi.dll
+/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/cbbScoreboard.csproj.AssemblyReference.cache
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/rpswa.dswa.cache.json
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/cbbScoreboard.GeneratedMSBuildEditorConfig.editorconfig
@@ -32,6 +35,3 @@
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/cbbScoreboard.pdb
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/cbbScoreboard.genruntimeconfig.cache
 /Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/Debug/net10.0/ref/cbbScoreboard.dll
-/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.Swagger.dll
-/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -15,13 +15,10 @@ public class StatsController: ControllerBase
         _statsService = statsService;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<StatDto>>> GetStats(
-        [FromQuery] string? path,
-        [FromQuery] string? statName
-    )
+    [HttpGet("{stat}")]
+    public async Task<ActionResult<List<StatDto>>> GetStats(string stat)
     {
-        var stats = await _statsService.GetStatsAsync(path, statName);
+        var stats = await _statsService.GetStatsAsync(stat);
         return Ok(stats);
     }
     

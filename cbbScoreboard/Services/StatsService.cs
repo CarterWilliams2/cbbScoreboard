@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
 using System;
+using cbbScoreboard.Constants;
 
 
 namespace cbbScoreboard.Services;
@@ -20,19 +21,27 @@ public class StatsService
         _httpClient = httpClient;
     }
 
-    public async Task<List<StatDto>> GetStatsAsync(string path, string statName) {
+    public async Task<List<StatDto>> GetStatsAsync(string statKey) {
 
-        //for now
-        var temp_path = "individual/605";
-        var temp_statName = "AST";
+    if (!StatCategories.Map.TryGetValue(statKey.ToLower(), out var statInfo))
+        throw new ArgumentException("Invalid stat category");
 
-        var url = "https://ncaa-api.henrygd.me/stats/basketball-men/d1/current/individual/605";
-        var response  = await _httpClient.GetStringAsync(url);
-        using var doc = JsonDocument.Parse(response);
+    string categoryId = statInfo.categoryId;
+    string stat = statInfo.stat;
 
-        var stats = ParseStats(doc, temp_statName);
-        return stats;
-    }
+    Console.WriteLine($"StatKey: {statKey}");
+    Console.WriteLine($"CategoryId: {categoryId}");
+    Console.WriteLine($"Stat: {stat}");
+
+    var url = $"https://ncaa-api.henrygd.me/stats/basketball-men/d1/current/individual/{categoryId}";
+    
+    Console.WriteLine(url);
+    var response  = await _httpClient.GetStringAsync(url);
+    using var doc = JsonDocument.Parse(response);
+
+    var stats = ParseStats(doc, stat);
+    return stats;
+}
 
     private List<StatDto> ParseStats(JsonDocument doc, string statName)
     {
@@ -42,11 +51,14 @@ public class StatsService
             .GetProperty("data")
             .EnumerateArray();
 
+        var current_rank = 0;
+
         foreach (var stat in statsArray)
         {
+            
             stats.Add(new StatDto
             {
-                rank = stat.GetProperty("Rank").GetString() ?? "",
+                rank = current_rank,
                 player_name = stat.GetProperty("Name").GetString() ?? "",
                 player_team = stat.GetProperty("Team").GetString() ?? "",
                 player_class = stat.GetProperty("Cl").GetString() ?? "",
@@ -56,6 +68,8 @@ public class StatsService
                 stat_total = stat.GetProperty(statName).GetString() ?? ""
 
             });
+
+            current_rank++;
         }
         return stats;
     }
