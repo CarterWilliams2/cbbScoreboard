@@ -30,7 +30,7 @@ public static class StatCategories
         ["three-point-attempts"] = ("624", "3FGA"),
         ["three-point-percentage"] = ("143", "3FG%"),
         ["three-pointers-per-game"] = ("144", "3PG"),
-        ["total-3-point-FGM"] = ("621", "3FG"),
+        ["total-three-point-fgm"] = ("621", "3FG"),
         ["triple-doubles"] = ("557", "Trpl Dbl")
     };
 }
