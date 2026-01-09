@@ -17,4 +17,5 @@ public class GameDto
     public string AwayConference { get; set; } = string.Empty;
 
     public string Clock { get; set; } = string.Empty;
+    public string Period { get; set; } = string.Empty;
 }
