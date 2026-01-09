@@ -31,7 +31,7 @@ export default function ScoresPage() {
       {games.map((game) => (
         <div key={game.gameId} style={{ marginBottom: 12 }}>
           <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
-          <div>{game.clock}</div>
+          <div>{game.clock} -- {game.period}</div>
           <div>
             {game.awayScore !== "" && game.homeScore !== ""
               ? `${game.awayScore} - ${game.homeScore}`
