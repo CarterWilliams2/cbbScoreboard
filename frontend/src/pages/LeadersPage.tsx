@@ -21,7 +21,7 @@ export default function LeadersPage() {
   return (
     <div>
       <h1>Season Stat Leaders</h1>
-      <p>Coming soon</p>
+      <p>{statName}</p>
 
       <div style={{ marginBottom: 16 }}>
         <label htmlFor="stat-select">Select Stat: </label>
@@ -63,9 +63,9 @@ export default function LeadersPage() {
         </select>
       </div>
 
-      {stats.map((stat) => (
+      {stats.map((stat, index) => (
         <div key={stat.player_name} style={{ marginBottom: 12 }}>
-          <div>{stat.player_name}</div>
+          <div>{index + 1}. {stat.player_name}</div>
           <div>{stat.stat_total}</div>
         </div>
       ))}
