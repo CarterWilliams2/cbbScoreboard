@@ -9,6 +9,7 @@ export type Game = {
     status: GameStatus;
     startTimeUtc: string;
     clock: string;
+    period: string;
 };
 
 export type PagedResult<T> = {
