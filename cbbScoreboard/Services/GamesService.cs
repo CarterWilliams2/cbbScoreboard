@@ -80,7 +80,9 @@ public class GamesService
                 ),
 
                 HomeConference = home.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? "",
-                AwayConference = away.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? ""
+                AwayConference = away.GetProperty("conferences")[0].GetProperty("conferenceSeo").GetString() ?? "",
+
+                Clock = _game.GetProperty("contestClock").GetString() ?? ""
             });
         }
         return games;
