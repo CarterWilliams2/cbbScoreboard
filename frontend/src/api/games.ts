@@ -8,6 +8,7 @@ export type Game = {
     awayScore: string;
     status: GameStatus;
     startTimeUtc: string;
+    clock: string;
 };
 
 export type PagedResult<T> = {
