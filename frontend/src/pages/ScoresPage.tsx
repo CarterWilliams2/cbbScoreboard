@@ -32,7 +32,12 @@ export default function ScoresPage() {
         <div key={game.gameId} style={{ marginBottom: 12 }}>
           <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
           <div>
-            {game.awayScore} - {game.homeScore} ({game.status})
+            {game.awayScore !== "" && game.homeScore !== ""
+              ? `${game.awayScore} - ${game.homeScore}`
+              : new Date(game.startTimeUtc).toLocaleTimeString([], {
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
           </div>
         </div>
       ))}
