@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchGames, type Game, type GameStatus } from "../api/games";
+import { Link } from "react-router-dom";
 
 const getGameStatus = (game: Game) => {
   if (game.awayScore != "" && game.homeScore != "") {
@@ -39,13 +40,15 @@ export default function ScoresPage() {
       </div>
 
       {games.map((game) => (
-        <div key={game.gameId} style={{ marginBottom: 12 }}>
-          <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
-          <div>
-            {game.clock} -- {game.period}
+        <Link key={game.gameId} to={`/game/${game.gameId}`}>
+          <div key={game.gameId} style={{ marginBottom: 12 }}>
+            <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
+            <div>
+              {game.clock} -- {game.period}
+            </div>
+            <div>{getGameStatus(game)}</div>
           </div>
-          <div>{getGameStatus(game)}</div>
-        </div>
+        </Link>
       ))}
     </div>
   );
