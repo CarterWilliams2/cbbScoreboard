@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ScoresPage from "./pages/ScoresPage";
 import LeadersPage from "./pages/LeadersPage";
+import GameDetailPage from "./pages/GameDetailPage";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ScoresPage />} />
         <Route path="/leaders" element={<LeadersPage />} />
+        <Route path="/game/:gameId" element={<GameDetailPage />} />
       </Routes>
     </div>
     </BrowserRouter>
