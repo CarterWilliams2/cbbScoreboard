@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchGames, type Game, type GameStatus } from "../api/games";
 
+const getGameStatus = (game: Game) => {
+  if (game.awayScore != "" && game.homeScore != "") {
+    return `${game.awayScore} - ${game.homeScore}`;
+  }
+  return new Date(game.startTimeUtc).toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+};
+
 export default function ScoresPage() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,12 +43,7 @@ export default function ScoresPage() {
           <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
           <div>{game.clock} -- {game.period}</div>
           <div>
-            {game.awayScore !== "" && game.homeScore !== ""
-              ? `${game.awayScore} - ${game.homeScore}`
-              : new Date(game.startTimeUtc).toLocaleTimeString([], {
-                  hour: "numeric",
-                  minute: "2-digit",
-                })}
+            {getGameStatus(game)}
                 
           </div>
           
