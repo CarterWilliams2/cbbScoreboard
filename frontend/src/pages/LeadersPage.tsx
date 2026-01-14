@@ -15,7 +15,7 @@ export default function LeadersPage() {
       .finally(() => setLoading(false));
   }, [statName]);
 
-  if (loading) return <p>Loading games...</p>;
+  if (loading) return <p>Loading stats...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (

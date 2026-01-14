@@ -40,15 +40,17 @@ export default function ScoresPage() {
       </div>
 
       {games.map((game) => (
-        <Link key={game.gameId} to={`/game/${game.gameId}`}>
+        
           <div key={game.gameId} style={{ marginBottom: 12 }}>
+            <Link key={game.gameId} to={`/game/${game.gameId}`}>
             <strong>{game.awayTeam}</strong> @ <strong>{game.homeTeam}</strong>
+            </Link>
             <div>
               {game.clock} -- {game.period}
             </div>
             <div>{getGameStatus(game)}</div>
           </div>
-        </Link>
+        
       ))}
     </div>
   );
