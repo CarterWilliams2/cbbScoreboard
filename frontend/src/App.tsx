@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import ScoresPage from "./pages/ScoresPage";
-import LeadersPage from "./pages/LeadersPage";
-import GameDetailPage from "./pages/GameDetailPage";
+import ScoresPage from "./pages/Scores/ScoresPage";
+import LeadersPage from "./pages/Leaders/LeadersPage";
+import GameDetailPage from "./pages/GameDetail/GameDetailPage";
 
 
 function App() {

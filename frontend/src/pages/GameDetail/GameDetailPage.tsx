@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Game } from "../api/games";
-import { fetchGameDetail } from "../api/gameDetail";
+import type { Game } from "../../api/games";
+import { fetchGameDetail } from "../../api/gameDetail";
 import { useParams } from "react-router-dom";
 
 export default function GameDetailPage() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchGames, type Game, type GameStatus } from "../api/games";
+import { fetchGames, type Game, type GameStatus } from "../../api/games";
 import { Link } from "react-router-dom";
 
 const getGameStatus = (game: Game) => {

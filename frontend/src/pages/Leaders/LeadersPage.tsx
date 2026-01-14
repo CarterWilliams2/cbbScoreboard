@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchStats, type Stat } from "../api/stats";
-import type { StatCategory } from "../api/stats";
+import { fetchStats, type Stat } from "../../api/stats";
+import type { StatCategory } from "../../api/stats";
 
 export default function LeadersPage() {
   const [stats, setStats] = useState<Stat[]>([]);
