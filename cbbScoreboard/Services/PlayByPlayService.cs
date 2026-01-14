@@ -36,10 +36,33 @@ public class PlayByPlayService
 
     private List<PlayByPlayDto> ParsePlayByPlay(JsonDocument doc)
     {
+        var plays = new List<PlayByPlayDto>();
+
+        var periodsArray = doc.RootElement
+            .GetProperty("periods")
+            .EnumerateArray();
         
+        foreach (var period in periodsArray)
+        {
+            var playByPlayStatsArray = period.GetProperty("playbyplayStats").EnumerateArray();
+            var periodNumber = period.GetProperty("periodNumber").ToString();
+
+            foreach (var play in playByPlayStatsArray)
+            {
+                
+                plays.Add(new PlayByPlayDto
+                {
+                    HomeScore = play.GetProperty("homeScore").ToString(),
+                    VisitorScore = play.GetProperty("visitorScore").ToString(),
+                    PeriodNumber = periodNumber,
+                    Clock = play.GetProperty("clock").ToString(),
+                    EventDescription = play.GetProperty("eventDescription").ToString(),
+
+                });
+            }
+        }
 
 
-
-        return null;
+        return plays;
     } 
 }
