@@ -1,14 +1,14 @@
 export type PlayByPlay = {
-    home_score: string,
-    visitor_score: string,
-    period_number: string,
+    homeScore: string,
+    visitorScore: string,
+    periodNumber: string,
     clock: string,
-    event_description: string,
+    eventDescription: string,
 }
 
-const API_BASE = "http://localhost:5150/play-by-play";
+const API_BASE = "http://localhost:5150/api/play-by-play";
 
-export async function fetchPLayByPlay(params: {
+export async function fetchPlayByPlay(params: {
     gameId: string,
 }) {
 
