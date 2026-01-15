@@ -1,0 +1,23 @@
+# .NET
+bin/
+obj/
+*.user
+
+# React
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+*.csv
+*.pkl
+*.h5
+
+# IDEs
+.vscode/
+.idea/
+*.swp
