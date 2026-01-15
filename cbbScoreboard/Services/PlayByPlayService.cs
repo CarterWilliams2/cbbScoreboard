@@ -53,8 +53,7 @@ public class PlayByPlayService
                 });
             }
         }
-
-
+        
         return plays;
     } 
 }
