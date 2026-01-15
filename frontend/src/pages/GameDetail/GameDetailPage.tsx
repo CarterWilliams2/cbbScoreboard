@@ -18,7 +18,6 @@ export default function GameDetailPage() {
 
     const loadData = async () => {
       try {
-        setLoading(true);
         setError("");
 
         const [gameData, playsData] = await Promise.all([
@@ -36,16 +35,17 @@ export default function GameDetailPage() {
     };
 
     loadData();
+    const interval = setInterval(loadData, 10000);
+    
+    return () => clearInterval(interval);
   }, [gameId]);
 
   if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!game) return <p>Game not found!</p>;
 
-  plays?.reverse();
-
-  const selectPlays = plays?.slice(0, 10)
-  
+  console.log("Game data:", game);
+  const selectPlays = plays?.slice().reverse().slice(0, 10);
 
   return (
     <div className="scoreboard-container">
