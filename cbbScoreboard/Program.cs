@@ -23,6 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient<GamesService>();
 builder.Services.AddHttpClient<StatsService>();
+builder.Services.AddHttpClient<PlayByPlayService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
