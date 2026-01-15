@@ -42,7 +42,10 @@ export default function GameDetailPage() {
   if (error) return <p>Error: {error}</p>;
   if (!game) return <p>Game not found!</p>;
 
-  console.log("Plays data:", plays);
+  plays?.reverse();
+
+  const selectPlays = plays?.slice(0, 10)
+  
 
   return (
     <div className="scoreboard-container">
@@ -69,7 +72,7 @@ export default function GameDetailPage() {
         <div className="game-id">Game ID: {game.gameId}</div>
         <div>
           Plays:
-          {plays?.map((play, index) => (
+          {selectPlays?.map((play, index) => (
             <div key={index}>{play.eventDescription}</div>
           ))}
         </div>
