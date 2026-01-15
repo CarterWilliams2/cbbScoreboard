@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lllUT8B34j0=",
+  "dgSpecHash": "BSTpKVTZkik=",
   "success": true,
-  "projectFilePath": "/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/cbbScoreboard.csproj",
+  "projectFilePath": "/Users/carterwilliams/repos/cbbScoreboard/backend/cbbScoreboard.csproj",
   "expectedPackageFiles": [
     "/Users/carterwilliams/.nuget/packages/microsoft.aspnetcore.openapi/10.0.1/microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
     "/Users/carterwilliams/.nuget/packages/microsoft.extensions.apidescription.server/10.0.0/microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",

@@ -503,11 +503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/cbbScoreboard.csproj",
+      "projectUniqueName": "/Users/carterwilliams/repos/cbbScoreboard/backend/cbbScoreboard.csproj",
       "projectName": "cbbScoreboard",
-      "projectPath": "/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/cbbScoreboard.csproj",
+      "projectPath": "/Users/carterwilliams/repos/cbbScoreboard/backend/cbbScoreboard.csproj",
       "packagesPath": "/Users/carterwilliams/.nuget/packages/",
-      "outputPath": "/Users/carterwilliams/repos/cbbScoreboard/cbbScoreboard/obj/",
+      "outputPath": "/Users/carterwilliams/repos/cbbScoreboard/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/carterwilliams/.nuget/NuGet/NuGet.Config"
