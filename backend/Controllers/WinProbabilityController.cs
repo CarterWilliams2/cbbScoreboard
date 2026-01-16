@@ -15,6 +15,11 @@ public class WinProbabilityController: ControllerBase
         _winProbabilityService = winProbabilityService;
     }
 
-    
+    [HttpGet]
+    public async Task<ActionResult<WinProbabilityDto>> GetWinProbability(PlayByPlayDto play)
+    {
+        var plays = await _winProbabilityService.GetWinProbabilityAsync(play);
+        return Ok(plays);
+    }
     
 }

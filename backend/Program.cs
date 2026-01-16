@@ -24,6 +24,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient<GamesService>();
 builder.Services.AddHttpClient<StatsService>();
 builder.Services.AddHttpClient<PlayByPlayService>();
+builder.Services.AddHttpClient<WinProbabilityService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
