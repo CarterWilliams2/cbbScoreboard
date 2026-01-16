@@ -12,6 +12,8 @@ public class WinProbabilityService
     public async Task<WinProbabilityDto> GetWinProbabilityAsync()
     {
         var url = "http://localhost:8000/predict";
+        var response  = await _httpClient.GetStringAsync(url);
+        // parse/shape response
         return null;
     }
 
