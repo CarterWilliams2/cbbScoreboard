@@ -1,3 +1,5 @@
+using cbbScoreboard.Models;
+
 namespace cbbScoreboard.Services;
 
 public class WinProbabilityService
