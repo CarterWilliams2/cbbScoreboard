@@ -1,9 +1,14 @@
+using System.Text.Json.Serialization;
+
 namespace cbbScoreboard.Models;
 
 public class WinProbabilityDto
 {
-    public string AwayWinProbability { get; set; } = string.Empty;
-    public string HomeWinProbability { get; set; } = string.Empty;
+    [JsonPropertyName("away_win_probability")]
+    public double AwayWinProbability { get; set; }
+    
+    [JsonPropertyName("home_win_probability")]
+    public double HomeWinProbability { get; set; }
 
 
 };
