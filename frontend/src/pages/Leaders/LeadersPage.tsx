@@ -65,7 +65,7 @@ export default function LeadersPage() {
 
       {stats.map((stat, index) => (
         <div key={stat.player_name} style={{ marginBottom: 12 }}>
-          <div>{index + 1}. {stat.player_name}</div>
+          <div>{index + 1}. {stat.player_name} -- {stat.player_team}</div>
           <div>{stat.stat_total}</div>
         </div>
       ))}
