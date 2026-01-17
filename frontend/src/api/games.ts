@@ -1,4 +1,4 @@
-export type GameStatus = "live" | "final" | "upcoming";
+export type GameStatus = 0 | 1 | 2;
 
 export type Game = {
     gameId: string;
@@ -28,7 +28,7 @@ export async function fetchGames(params?: {
 }) {
     const query = new URLSearchParams();
 
-    if (params?.status) query.append("status", params.status);
+    if (params?.status) query.append("status", params.status.toString());
     if (params?.page) query.append("page", params.page.toString());
     if (params?.pageSize) query.append("pageSize", params.pageSize.toString());
 

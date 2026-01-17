@@ -14,31 +14,33 @@ export default function GameDetailPage() {
   const [plays, setPlays] = useState<PlayByPlay[]>();
 
   useEffect(() => {
-    if (!gameId) return;
+  if (!gameId) return;
 
-    const loadData = async () => {
-      try {
-        setError("");
+  const loadData = async () => {
+    try {
+      setError("");
 
-        const [gameData, playsData] = await Promise.all([
-          fetchGameDetail({ gameId }),
-          fetchPlayByPlay({ gameId }),
-        ]);
+      const gameData = await fetchGameDetail({ gameId });
+      setGame(gameData);
 
-        setGame(gameData);
+      console.log(gameData);
+
+      if (gameData.status != 0) {
+        const playsData = await fetchPlayByPlay({ gameId });
         setPlays(playsData);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadData();
-    const interval = setInterval(loadData, 10000);
-    
-    return () => clearInterval(interval);
-  }, [gameId]);
+  loadData();
+  const interval = setInterval(loadData, 10000);
+
+  return () => clearInterval(interval);
+}, [gameId]);
 
   if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error: {error}</p>;
