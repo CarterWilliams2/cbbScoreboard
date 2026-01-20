@@ -96,6 +96,7 @@ def convert_play_to_row(play, home_winner, game_id):
         'score_differential': score_differential,
         'time_remaining': time_remaing
     }
+    
     return row
 
 
