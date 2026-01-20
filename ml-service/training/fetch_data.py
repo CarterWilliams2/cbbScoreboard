@@ -87,14 +87,14 @@ def convert_play_to_row(play, home_winner, game_id):
     time_remaing += seconds
     time_remaing += minutes * 60
     if (period == 1):
-        time_remaing += 1200
+        time_remaining += 1200
     
     row = {
         'game_id': game_id,
         'home_score': home_score,
         'away_score': away_score,
         'score_differential': score_differential,
-        'time_remaining': time_remaing
+        'time_remaining': time_remaining
     }
     
     return row
