@@ -1,9 +1,25 @@
+import joblib
+import pandas as pd
+import os
+
+
 class WinProbabilityModel:
-    def __init__(self):
-        print("Model initialized")
-    
+    def __init__(self, model_path):
+        self.model = joblib.load(model_path)
+        print("Win probability model loaded")
+
     def predict(self, game_state):
+        score_diff = game_state.home_score - game_state.away_score
+        time_remaining = game_state.time_remaining_seconds
+
+        X = pd.DataFrame([{
+            "score_differential": score_diff,
+            "time_remaining_seconds": time_remaining
+        }])
+
+        home_prob = float(self.model.predict_proba(X)[0][1])
+
         return {
-            "home_win_probability": .5,
-            "away_win_probability": .5
+            "home_win_probability": home_prob,
+            "away_win_probability": 1.0 - home_prob
         }

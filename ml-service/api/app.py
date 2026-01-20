@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = WinProbabilityModel()
+model = WinProbabilityModel("../training/home_win_logreg.joblib")
 
 class GameState(BaseModel):
     period: int = Field(..., ge=1, le=2, description="Period number (1 or 2)")
@@ -72,8 +72,7 @@ def health_check():
 @app.post("/predict", response_model=PredictionResponse)
 def predict_win_probability(game_state: GameState):
     try:
-        prediction = model.predict(game_state.dict())
-        return prediction
+        return model.predict(game_state)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
