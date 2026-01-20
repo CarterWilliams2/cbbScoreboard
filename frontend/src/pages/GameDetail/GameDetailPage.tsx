@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { fetchPlayByPlay } from "../../api/playByPlay";
 import type { PlayByPlay } from "../../api/playByPlay";
 import "./GameDetailPage.css";
+import { fetchWinProbability } from "../../api/winProbability";
+import type { WinProbability } from "../../api/winProbability";
 
 export default function GameDetailPage() {
   const { gameId } = useParams();
@@ -12,41 +14,45 @@ export default function GameDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [plays, setPlays] = useState<PlayByPlay[]>();
+  const [winProbability, setWinProbability] = useState<WinProbability>();
 
-  useEffect(() => {
-  if (!gameId) return;
+ useEffect(() => {
+    if (!gameId) return;
 
-  const loadData = async () => {
-    try {
-      setError("");
+    const loadData = async () => {
+      try {
+        setError("");
 
-      const gameData = await fetchGameDetail({ gameId });
-      setGame(gameData);
+        const gameData = await fetchGameDetail({ gameId });
+        setGame(gameData);
 
-      console.log(gameData);
-
-      if (gameData.status != 0) {
-        const playsData = await fetchPlayByPlay({ gameId });
-        setPlays(playsData);
+        if (gameData.status != 0) {
+          const playsData = await fetchPlayByPlay({ gameId });
+          setPlays(playsData);
+          
+          if (playsData && playsData.length > 0) {
+            const mostRecentPlay = playsData[playsData.length - 1];
+            const winProb = await fetchWinProbability({ play: mostRecentPlay });
+            setWinProbability(winProb);
+          }
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  loadData();
-  const interval = setInterval(loadData, 10000);
+    loadData();
+    const interval = setInterval(loadData, 10000);
 
-  return () => clearInterval(interval);
-}, [gameId]);
+    return () => clearInterval(interval);
+  }, [gameId]);
 
   if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!game) return <p>Game not found!</p>;
 
-  console.log("Game data:", game);
   const selectPlays = plays?.slice().reverse().slice(0, 10);
 
   return (
@@ -61,6 +67,7 @@ export default function GameDetailPage() {
           <div className="team">
             <div className="team-name">{game.awayTeam}</div>
             <div className="team-score">{game.awayScore}</div>
+            <div>{winProbability?.away_win_probability}</div>
           </div>
 
           <div className="vs-separator">VS</div>
@@ -68,6 +75,7 @@ export default function GameDetailPage() {
           <div className="team">
             <div className="team-name">{game.homeTeam}</div>
             <div className="team-score">{game.homeScore}</div>
+            <div>{winProbability?.home_win_probability}</div>
           </div>
         </div>
 
