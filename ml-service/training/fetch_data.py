@@ -66,7 +66,7 @@ def fetch_plays_for_game_id(game_id):
 
 def get_winner(play):
     home = play.get('homeScore', 0)
-    away = play.get('awayScore', 0)
+    away = play.get('visitorScore', 0)
     
     if home > away:
         return True
@@ -76,7 +76,7 @@ def get_winner(play):
 def convert_play_to_row(play, home_winner, game_id):
     
     home_score = play.get('homeScore', 0)
-    away_score = play.get('awayScore', 0)
+    away_score = play.get('visitorScore', 0)
     score_differential = home_score - away_score
     
     clock = play.get('clock', '0:00')
@@ -84,8 +84,8 @@ def convert_play_to_row(play, home_winner, game_id):
     minutes, seconds = clock.split(":")
     time_remaining = 0
     
-    time_remaing += seconds
-    time_remaing += minutes * 60
+    time_remaining += int(seconds)
+    time_remaining += int(minutes) * 60
     if (period == 1):
         time_remaining += 1200
     
@@ -94,7 +94,8 @@ def convert_play_to_row(play, home_winner, game_id):
         'home_score': home_score,
         'away_score': away_score,
         'score_differential': score_differential,
-        'time_remaining': time_remaining
+        'time_remaining': time_remaining,
+        'home_win': home_winner
     }
     
     return row
@@ -102,13 +103,18 @@ def convert_play_to_row(play, home_winner, game_id):
 
 if __name__ == "__main__":
     date_string = "2026/01/19"
+    safe_date_string = date_string.replace("/", "-")
 
     game_ids = fetch_game_ids_for_date(date_string)
 
-    all_plays = []
+    all_rows = []
     for game_id in game_ids:
         game_plays = fetch_plays_for_game_id(game_id)
-        all_plays.extend(game_plays)
+        all_rows.extend(game_plays)
         time.sleep(0.5)
     
+    df = pd.DataFrame(all_rows)
+    
+    output_file = f"training_data_{safe_date_string}.csv"
+    df.to_csv(output_file, index=False)
     
