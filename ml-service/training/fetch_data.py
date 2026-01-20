@@ -77,7 +77,6 @@ def convert_play_to_row(play, home_winner, game_id):
     
     home_score = play.get('homeScore', 0)
     away_score = play.get('visitorScore', 0)
-    score_differential = home_score - away_score
     
     clock = play.get('clock', '0:00')
     period = play.get('period')
@@ -93,8 +92,8 @@ def convert_play_to_row(play, home_winner, game_id):
         'game_id': game_id,
         'home_score': home_score,
         'away_score': away_score,
-        'score_differential': score_differential,
-        'time_remaining': time_remaining,
+        'period': period,
+        'time_remaining_seconds': time_remaining,
         'home_win': home_winner
     }
     
