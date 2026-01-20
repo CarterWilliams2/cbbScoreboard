@@ -49,6 +49,8 @@ def fetch_plays_for_game_id(game_id):
             for play in period_plays:
                 plays.append(play)
         
+        
+        
         print(f"Found {len(plays)} plays for game: {game_id}")
 
         return plays
@@ -56,6 +58,18 @@ def fetch_plays_for_game_id(game_id):
     except Exception as e:
         print(f"Error fetching plays for {game_id}: {e}")
         return []
+
+def get_winner(play):
+    home = play.get('homeScore', 0)
+    away = play.get('awayScore', 0)
+    
+    if home > away:
+        return True
+
+    return False
+
+def convert_play_to_row(play, home_winner):
+    
 
 
 if __name__ == "__main__":
@@ -69,5 +83,4 @@ if __name__ == "__main__":
         all_plays.extend(game_plays)
         time.sleep(0.5)
     
-
-
+    
