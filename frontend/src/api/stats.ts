@@ -42,7 +42,7 @@ export async function fetchStats(params: {
     stat: StatCategory,
 }) {
 
-    const res = await fetch(`${API_BASE}/api/stats${params.stat}`);
+    const res = await fetch(`${API_BASE}/api/stats/${params.stat}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch stats");
