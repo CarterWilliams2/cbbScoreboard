@@ -1,4 +1,4 @@
-export type GameStatus = 0 | 1 | 2;
+export type GameStatus = 0 | 1 | 2 | "upcoming" | "live" | "final";
 
 export type Game = {
     gameId: string;

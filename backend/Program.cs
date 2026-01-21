@@ -3,12 +3,22 @@ using cbbScoreboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    var port = Environment.GetEnvironmentVariable("PORT");
+    if (port != null)
+    {
+        options.ListenAnyIP(int.Parse(port));
+    }
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("frontend", policy =>
     {
         policy
             .WithOrigins("http://localhost:5173")
+            .WithOrigins("http://cbb-scoreboard-frontend.s3-website.us-east-2.amazonaws.com/")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

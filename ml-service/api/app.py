@@ -24,7 +24,7 @@ app.add_middleware(
 model = WinProbabilityModel("../training/home_win_logreg.joblib")
 
 class GameState(BaseModel):
-    period: int = Field(..., ge=1, le=2, description="Period number (1 or 2)")
+    period: int = Field(..., ge=1, le=3, description="Period number")
     time_remaining_seconds: int = Field(..., ge=0, le=2400, description="Time remaining in seconds")
     home_score: int = Field(..., ge=0, description="Home team score")
     away_score: int = Field(..., ge=0, description="Away team score")
