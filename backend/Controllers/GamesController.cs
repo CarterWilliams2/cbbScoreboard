@@ -20,7 +20,7 @@ public class GamesController: ControllerBase
         [FromQuery] string? status,
         [FromQuery] string? conference,
         [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20)
+        [FromQuery] int pageSize = 50)
     {
         var games = await _gamesService.GetFilteredGamesAsync(status, conference, page, pageSize);
         return Ok(games);
