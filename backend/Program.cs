@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
+
 using cbbScoreboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +17,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient<GamesService>();
