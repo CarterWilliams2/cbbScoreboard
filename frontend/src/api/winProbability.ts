@@ -5,13 +5,13 @@ export type WinProbability = {
     home_win_probability: number
 };
 
-const API_BASE = "http://localhost:5150/api/win-probability";
+const API_BASE = import.meta.env.VITE_ML_API_BASE_URL;
 
 export async function fetchWinProbability(params: {
     play: PlayByPlay,
 }) {
 
-    const res = await fetch(`${API_BASE}/`, {
+    const res = await fetch(`${API_BASE}/api/win-probability`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

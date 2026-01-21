@@ -19,7 +19,7 @@ export type PagedResult<T> = {
     totalCount: number;
 };
 
-const API_BASE = "http://localhost:5150/api/games"
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export async function fetchGames(params?: {
     status?: GameStatus,
@@ -33,7 +33,7 @@ export async function fetchGames(params?: {
     if (params?.pageSize) query.append("pageSize", params.pageSize.toString());
 
 
-    const res = await fetch(`${API_BASE}?${query.toString()}`);
+    const res = await fetch(`${API_BASE}/api/games?${query.toString()}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch games");

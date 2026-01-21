@@ -36,13 +36,13 @@ export type StatCategory =
     | "total-three-point-fgm"
     | "triple-doubles"
 
-const API_BASE = "http://localhost:5150/api/stats";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export async function fetchStats(params: {
     stat: StatCategory,
 }) {
 
-    const res = await fetch(`${API_BASE}/${params.stat}`);
+    const res = await fetch(`${API_BASE}/api/stats${params.stat}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch stats");
