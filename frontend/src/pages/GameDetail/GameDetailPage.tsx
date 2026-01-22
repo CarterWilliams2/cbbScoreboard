@@ -50,7 +50,7 @@ export default function GameDetailPage() {
     return () => clearInterval(interval);
   }, [gameId]);
 
-  if (loading) return <p>Loading games...</p>;
+  if (loading) return <p>Loading game details...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!game) return <p>Game not found!</p>;
 
