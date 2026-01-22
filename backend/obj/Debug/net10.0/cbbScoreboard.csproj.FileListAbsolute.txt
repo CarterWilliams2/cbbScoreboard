@@ -1,3 +1,4 @@
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/web.config
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/web.config
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/web.config
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/web.config
@@ -54,6 +55,11 @@
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.deps.json
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.runtimeconfig.json
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.staticwebassets.endpoints.json
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/appsettings.Development.json
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/appsettings.json
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.deps.json
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.runtimeconfig.json
+/Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/publish/publish/publish/publish/publish/publish/publish/publish/publish/publish/cbbScoreboard.staticwebassets.endpoints.json
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/cbbScoreboard.staticwebassets.endpoints.json
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/cbbScoreboard
 /Users/carterwilliams/repos/cbbScoreboard/backend/bin/Debug/net10.0/cbbScoreboard.deps.json
