@@ -33,7 +33,7 @@ export async function fetchGames(params?: {
     if (params?.pageSize) query.append("pageSize", params.pageSize.toString());
 
 
-    const res = await fetch(`${API_BASE}/api/games?${query.toString()}`);
+    const res = await fetch(`${API_BASE}api/games?${query.toString()}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch games");

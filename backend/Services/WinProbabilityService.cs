@@ -20,8 +20,7 @@ public class WinProbabilityService
     public WinProbabilityService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _predictUrl = configuration["MLService:PredictUrl"] 
-                      ?? throw new ArgumentNullException("PredictUrl not found");
+        _predictUrl = "https://cbb-scoreboard-ml-service-hsfud0fkffgef4gw.centralus-01.azurewebsites.net/api/predict";
     }
 
     public async Task<WinProbabilityDto> GetWinProbabilityAsync(PlayByPlayDto play)
