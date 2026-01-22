@@ -20,7 +20,11 @@ public class WinProbabilityService
     public WinProbabilityService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _predictUrl = "https://cbb-scoreboard-ml-service-hsfud0fkffgef4gw.centralus-01.azurewebsites.net/api/predict";
+        _predictUrl = configuration["MLService:PredictUrl"] 
+                  ?? "https://cbb-scoreboard-ml-service-hsfud0fkffgef4gw.centralus-01.azurewebsites.net/api/predict";
+
+    
+    Console.WriteLine($"WinProbabilityService initialized with URL: {_predictUrl}");
     }
 
     public async Task<WinProbabilityDto> GetWinProbabilityAsync(PlayByPlayDto play)
@@ -35,7 +39,6 @@ public class WinProbabilityService
             throw new Exception($"ML API Error: {response.StatusCode} - {error}");
         }
 
-        // Deserialize using the same snake_case options
         return await response.Content.ReadFromJsonAsync<WinProbabilityDto>(_jsonOptions);
     }
 
