@@ -1,5 +1,5 @@
 
-export function formatWinPercent(winProb: number) {
+export function formatWinPercent(winProb?: number) {
 
     let percent = 0;
     let percent_string = "50%"

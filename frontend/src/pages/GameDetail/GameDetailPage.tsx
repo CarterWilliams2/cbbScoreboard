@@ -7,6 +7,7 @@ import type { PlayByPlay } from "../../api/playByPlay";
 import "./GameDetailPage.css";
 import { fetchWinProbability } from "../../api/winProbability";
 import type { WinProbability } from "../../api/winProbability";
+import { formatWinPercent } from "./GameDetailService";
 
 export default function GameDetailPage() {
   const { gameId } = useParams();
@@ -67,7 +68,7 @@ export default function GameDetailPage() {
           <div className="team">
             <div className="team-name">{game.awayTeam}</div>
             <div className="team-score">{game.awayScore}</div>
-            <div>{winProbability?.away_win_probability}</div>
+            <div>{formatWinPercent(winProbability?.away_win_probability)}</div>
           </div>
 
           <div className="vs-separator">VS</div>
@@ -75,7 +76,7 @@ export default function GameDetailPage() {
           <div className="team">
             <div className="team-name">{game.homeTeam}</div>
             <div className="team-score">{game.homeScore}</div>
-            <div>{winProbability?.home_win_probability}</div>
+            <div>{formatWinPercent(winProbability?.home_win_probability)}</div>
           </div>
         </div>
 
