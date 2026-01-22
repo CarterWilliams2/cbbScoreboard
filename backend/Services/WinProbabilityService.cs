@@ -1,39 +1,43 @@
 using cbbScoreboard.Models;
 using System.Text;
 using System.Text.Json;
+using System.Net.Http.Json; 
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace cbbScoreboard.Services;
 
 public class WinProbabilityService
 {
     private readonly HttpClient _httpClient;
+    private readonly string _predictUrl;
+    
+    private readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+    };
 
-    public WinProbabilityService(HttpClient httpClient)
+    public WinProbabilityService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _predictUrl = configuration["MLService:PredictUrl"] 
+                      ?? throw new ArgumentNullException("PredictUrl not found");
     }
 
     public async Task<WinProbabilityDto> GetWinProbabilityAsync(PlayByPlayDto play)
     {
-
         GameStateDto game_state = ConvertPlayToGameState(play);
-        string game_state_string = JsonSerializer.Serialize(game_state);
 
-        var url = "http://localhost:8000/predict";
-        var content = new StringContent(
-            game_state_string,
-            Encoding.UTF8,
-            "application/json"
-        );
+        var response = await _httpClient.PostAsJsonAsync(_predictUrl, game_state, _jsonOptions);
 
-        var response = await _httpClient.PostAsync(url, content);
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            throw new Exception($"ML API Error: {response.StatusCode} - {error}");
+        }
 
-        response.EnsureSuccessStatusCode();
-
-        var responseString = await response.Content.ReadAsStringAsync();
-        var winProbability = JsonSerializer.Deserialize<WinProbabilityDto>(responseString);
-
-        return winProbability;
+        // Deserialize using the same snake_case options
+        return await response.Content.ReadFromJsonAsync<WinProbabilityDto>(_jsonOptions);
     }
 
     private GameStateDto ConvertPlayToGameState(PlayByPlayDto play)

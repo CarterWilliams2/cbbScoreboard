@@ -12,7 +12,7 @@ export async function fetchPlayByPlay(params: {
     gameId: string,
 }) {
 
-    const res = await fetch(`${API_BASE}/api/play-by-play${params.gameId}`);
+    const res = await fetch(`${API_BASE}api/play-by-play/${params.gameId}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch plays");
