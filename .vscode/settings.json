@@ -1,0 +1,14 @@
+{
+    "python.analysis.extraPaths": [
+        "./ml-service/models"
+    ],
+    "appService.defaultWebAppToDeploy": "None",
+    "azureFunctions.deploySubpath": "ml-service/api-azure",
+    "azureFunctions.scmDoBuildDuringDeployment": true,
+    "azureFunctions.pythonVenv": ".venv",
+    "azureFunctions.projectLanguage": "Python",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.projectLanguageModel": 2,
+    "azureFunctions.projectSubpath": "ml-service/api-azure"
+}

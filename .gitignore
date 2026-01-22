@@ -18,6 +18,6 @@ venv/
 *.h5
 
 # IDEs
-.vscode/
+
 .idea/
 *.swp
