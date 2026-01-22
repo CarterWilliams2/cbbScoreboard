@@ -6,7 +6,7 @@ export function formatWinPercent(winProb?: number) {
 
     if (winProb) {
         percent = winProb * 100;
-        percent_string = `${percent}%`;
+        percent_string = `${percent.toFixed(2)}%`;
     }
     
 
