@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchGames, type Game, type GameStatus } from "../../api/games";
 import { Link } from "react-router-dom";
 
+//new build
 const getGameStatus = (game: Game) => {
   if (game.awayScore != "" && game.homeScore != "") {
     return `${game.awayScore} - ${game.homeScore}`;
