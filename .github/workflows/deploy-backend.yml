@@ -26,14 +26,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET 10
+
+      # Install .NET 8 ONLY for prod publish
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
-          dotnet-quality: 'preview'
+          dotnet-version: '8.0.x'
 
-      - name: Publish
-        run: dotnet publish -c Release -o ./publish /p:UseAppHost=false
+      - name: Publish (net8.0)
+        run: dotnet publish -c Release -f net8.0 -o ./publish /p:UseAppHost=false
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
